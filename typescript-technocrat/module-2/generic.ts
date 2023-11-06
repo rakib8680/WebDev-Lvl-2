@@ -31,7 +31,11 @@
 
     // object using generic type ............................................
 
-    const teacher: GenericType<{ name: string; age: number; role?: string }> = [
+    type Teacher = {
+        name: string; age: number; role?: string
+    }
+
+    const teacher: GenericType<Teacher> = [
         {
             name: "John",
             age: 30,
