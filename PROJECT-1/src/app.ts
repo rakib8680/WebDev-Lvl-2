@@ -14,7 +14,7 @@ app.use(express.json());
 
 // middleware 
 const logger = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.url, req.method, req.hostname);
+    // console.log(req.url, req.method, req.hostname);
     next();
 };
 
@@ -59,9 +59,13 @@ courseRouter.post('/create-course', (req: Request, res: Response) => {
 
 
 
-app.get('/', logger, (req: Request, res: Response) => {
-    res.send('Hello robin!');
-    console.log(req.query.email);
+app.get('/', logger, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        res.send('Hello World');
+        // console.log(req.query.email);
+    } catch (err) {
+        next(err);
+    }
 });
 
 
@@ -69,6 +73,30 @@ app.post('/', logger, (req: Request, res: Response) => {
     console.log(req.body);
     res.json(req.body)
 
+});
+
+
+
+
+// route handling 
+app.all('*', (req: Request, res: Response) => {
+    res.status(400).json({
+        success: false,
+        message: 'Route not found',
+    })
 })
+
+
+// global error  handler 
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+    if (error) {
+        res.status(400).json({
+            success: false,
+            message: 'Something went wrong',
+        })
+    }
+});
+
+
 
 export default app;
