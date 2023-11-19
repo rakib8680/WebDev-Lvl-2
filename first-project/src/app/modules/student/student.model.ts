@@ -2,12 +2,32 @@
 
 import { Schema, model } from 'mongoose';
 import { Guardian, Student, UserName } from './student.interface';
+import validator from 'validator';
 
 // username schema
 const userNameSchema = new Schema<UserName>({
-  firstName: { type: String, required: true },
+  firstName: {
+    type: String,
+    required: true,
+    maxlength: [20, 'FirstName cannot be more that 20 characters'],
+    trim: true,
+    validate: {
+      validator: function (value: string) {
+        const result = value.charAt(0).toUpperCase() + value.slice(1);
+        return result === value;
+      },
+      message: '{VALUE} is not in capitalize form',
+    },
+  },
   middleName: { type: String },
-  lastName: { type: String, required: true },
+  lastName: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (value: string) => validator.isAlpha(value),
+      message: '{VALUE} is not a valid last name',
+    },
+  },
 });
 
 // guardian schema
@@ -23,14 +43,22 @@ const guardianSchema = new Schema<Guardian>({
 // full studentSchema
 const studentSchema = new Schema<Student>({
   id: { type: String, required: true, unique: true },
-  name: {type:userNameSchema, required: true},
-  email: { type: String, required: true,unique: true },
+  name: { type: userNameSchema, required: true },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: (value: string) => validator.isEmail(value),
+      message: '{VALUE} is not a valid email',
+    },
+  },
   dateOfBirth: { type: String },
   gender: {
     type: String,
     enum: {
       values: ['male', 'female'],
-      message:'{VALUE} is not supported'
+      message: '{VALUE} is not supported',
     },
     required: true,
   },
@@ -42,7 +70,7 @@ const studentSchema = new Schema<Student>({
   },
   presentAddress: { type: String },
   permanentAddress: { type: String, required: true },
-  guardian: {type:guardianSchema, required: true},
+  guardian: { type: guardianSchema, required: true },
   profilePicture: { type: String },
   isActive: {
     type: String,
