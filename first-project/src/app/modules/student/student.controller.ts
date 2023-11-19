@@ -12,7 +12,7 @@ const createStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 };
 
@@ -42,7 +42,7 @@ const getSingleStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    // console.log(err);
+    console.log(err);
   }
 };
 

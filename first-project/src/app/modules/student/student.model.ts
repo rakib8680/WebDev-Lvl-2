@@ -22,18 +22,33 @@ const guardianSchema = new Schema<Guardian>({
 
 // full studentSchema
 const studentSchema = new Schema<Student>({
-  id: { type: String },
-  name: userNameSchema,
-  email: { type: String, required: true },
+  id: { type: String, required: true, unique: true },
+  name: {type:userNameSchema, required: true},
+  email: { type: String, required: true,unique: true },
   dateOfBirth: { type: String },
-  gender: ['male', 'female'],
+  gender: {
+    type: String,
+    enum: {
+      values: ['male', 'female'],
+      message:'{VALUE} is not supported'
+    },
+    required: true,
+  },
   contactNo: { type: String, required: true },
-  bloodGroup: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+  bloodGroup: {
+    type: String,
+    enum: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+    required: true,
+  },
   presentAddress: { type: String },
   permanentAddress: { type: String, required: true },
-  guardian: guardianSchema,
+  guardian: {type:guardianSchema, required: true},
   profilePicture: { type: String },
-  isActive: ['active', 'inactive'],
+  isActive: {
+    type: String,
+    enum: ['active', 'inactive'],
+    default: 'active',
+  },
 });
 
 // create model
