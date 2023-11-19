@@ -2,7 +2,7 @@
 
 import { Schema, model } from 'mongoose';
 import { Guardian, Student, UserName } from './student.interface';
-import validator from 'validator';
+// import validator from 'validator';
 
 // username schema
 const userNameSchema = new Schema<UserName>({
@@ -11,22 +11,22 @@ const userNameSchema = new Schema<UserName>({
     required: true,
     maxlength: [20, 'FirstName cannot be more that 20 characters'],
     trim: true,
-    validate: {
-      validator: function (value: string) {
-        const result = value.charAt(0).toUpperCase() + value.slice(1);
-        return result === value;
-      },
-      message: '{VALUE} is not in capitalize form',
-    },
+    // validate: {
+    //   validator: function (value: string) {
+    //     const result = value.charAt(0).toUpperCase() + value.slice(1);
+    //     return result === value;
+    //   },
+    //   message: '{VALUE} is not in capitalize form',
+    // },
   },
   middleName: { type: String },
   lastName: {
     type: String,
     required: true,
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: '{VALUE} is not a valid last name',
-    },
+    // validate: {
+    //   validator: (value: string) => validator.isAlpha(value),
+    //   message: '{VALUE} is not a valid last name',
+    // },
   },
 });
 
@@ -48,10 +48,10 @@ const studentSchema = new Schema<Student>({
     type: String,
     required: true,
     unique: true,
-    validate: {
-      validator: (value: string) => validator.isEmail(value),
-      message: '{VALUE} is not a valid email',
-    },
+    // validate: {
+    //   validator: (value: string) => validator.isEmail(value),
+    //   message: '{VALUE} is not a valid email',
+    // },
   },
   dateOfBirth: { type: String },
   gender: {
