@@ -1,5 +1,7 @@
 // create interface
 
+import { Model } from 'mongoose';
+
 // username interface
 export type UserName = {
   firstName: string;
@@ -32,3 +34,8 @@ export type Guardian = {
   motherOccupation?: string;
   motherContactNo?: string;
 };
+
+// for creating static methods in mongoose model
+export interface StudentModelInterface extends Model<Student> {
+  isUserExist(id: string): Promise<Student | null>;
+}

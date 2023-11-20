@@ -1,7 +1,7 @@
 // create schema and then create model
 
 import { Schema, model } from 'mongoose';
-import { Guardian, Student, UserName } from './student.interface';
+import { Guardian, Student, StudentModelInterface, UserName } from './student.interface';
 // import validator from 'validator';
 
 // username schema
@@ -41,7 +41,7 @@ const guardianSchema = new Schema<Guardian>({
 });
 
 // full studentSchema
-const studentSchema = new Schema<Student>({
+const studentSchema = new Schema<Student, StudentModelInterface>({
   id: { type: String, required: true, unique: true },
   name: { type: userNameSchema, required: true },
   email: {
@@ -79,5 +79,12 @@ const studentSchema = new Schema<Student>({
   },
 });
 
+
+// static method
+studentSchema.statics.isUserExist= async function(id:string){
+  const existingStudent = await StudentModel.findOne({id});
+  return existingStudent;
+}
+
 // create model
-export const StudentModel = model<Student>('Student', studentSchema);
+export const StudentModel = model<Student,StudentModelInterface>('Student', studentSchema);
