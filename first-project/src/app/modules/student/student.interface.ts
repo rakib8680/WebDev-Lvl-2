@@ -3,7 +3,7 @@
 // username interface
 export type UserName = {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 };
 
@@ -29,6 +29,6 @@ export type Guardian = {
   fatherOccupation: string;
   fatherContactNo: string;
   motherName: string;
-  motherOccupation: string;
-  motherContactNo: string;
+  motherOccupation?: string;
+  motherContactNo?: string;
 };
