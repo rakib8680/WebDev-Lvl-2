@@ -12,6 +12,7 @@ export type UserName = {
 // student interface
 export type Student = {
   id: string;
+  password:string;
   name: UserName;
   email: string;
   dateOfBirth: string;

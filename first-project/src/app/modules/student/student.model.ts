@@ -1,7 +1,15 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
 // create schema and then create model
 
 import { Schema, model } from 'mongoose';
-import { Guardian, Student, StudentModelInterface, UserName } from './student.interface';
+import {
+  Guardian,
+  Student,
+  StudentModelInterface,
+  UserName,
+} from './student.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 // import validator from 'validator';
 
 // username schema
@@ -43,6 +51,7 @@ const guardianSchema = new Schema<Guardian>({
 // full studentSchema
 const studentSchema = new Schema<Student, StudentModelInterface>({
   id: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   name: { type: userNameSchema, required: true },
   email: {
     type: String,
@@ -79,12 +88,32 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
   },
 });
 
+// pre save hook/middleware
+studentSchema.pre('save', async function (next) {
+  const student = this;
+
+  // hashed password before saving
+  student.password = await bcrypt.hash(
+    student.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
+});
+
+// post save hook/middleware
+studentSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
+});
 
 // static method
-studentSchema.statics.isUserExist= async function(id:string){
-  const existingStudent = await StudentModel.findOne({id});
+studentSchema.statics.isUserExist = async function (id: string) {
+  const existingStudent = await StudentModel.findOne({ id });
   return existingStudent;
-}
+};
 
 // create model
-export const StudentModel = model<Student,StudentModelInterface>('Student', studentSchema);
+export const StudentModel = model<Student, StudentModelInterface>(
+  'Student',
+  studentSchema,
+);

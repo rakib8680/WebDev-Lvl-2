@@ -20,6 +20,7 @@ const guardianValidationSchema = z.object({
 // Zod schema for Student
 const studentValidationSchema = z.object({
   id: z.string(),
+  password: z.string(),
   name: userNameValidationSchema,
   email: z.string().email(),
   dateOfBirth: z.string(),
