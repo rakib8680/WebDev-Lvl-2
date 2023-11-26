@@ -36,7 +36,7 @@ export type Guardian = {
   motherContactNo?: string;
 };
 
-// for creating static methods in mongoose model
+// for creating custom instance methods in mongoose model
 export interface StudentModelInterface extends Model<Student> {
   isUserExist(id: string): Promise<Student | null>;
 }
