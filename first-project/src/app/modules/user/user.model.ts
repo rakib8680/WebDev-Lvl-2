@@ -9,9 +9,12 @@ const userSchema = new Schema<TUser>(
     role: {
       type: String,
       enum: ['admin', 'student', 'faculty'],
-      default: 'student',
     },
-    status: { type: String, enum: ['in-progress', 'blocked'] },
+    status: {
+      type: String,
+      enum: ['in-progress', 'blocked'],
+      default: 'in-progress',
+    },
     isDeleted: { type: Boolean, default: false },
   },
   {
