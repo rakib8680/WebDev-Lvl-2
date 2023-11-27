@@ -3,7 +3,6 @@ import config from '../../config';
 import { TUser } from './user.interface';
 import bcrypt from 'bcrypt';
 
-
 const userSchema = new Schema<TUser>(
   {
     id: { type: String, required: true },
@@ -29,7 +28,6 @@ const userSchema = new Schema<TUser>(
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
-
   // hashed password before saving
   user.password = await bcrypt.hash(
     user.password,
