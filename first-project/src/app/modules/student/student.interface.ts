@@ -1,6 +1,6 @@
 // create interface
 
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 // username interface
 export type UserName = {
@@ -12,6 +12,7 @@ export type UserName = {
 // student interface
 export type Student = {
   id: string;
+  user:Types.ObjectId;
   password:string;
   name: UserName;
   email: string;
@@ -23,7 +24,7 @@ export type Student = {
   permanentAddress: string;
   guardian: Guardian;
   profilePicture?: string;
-  isActive: 'active' | 'inactive';
+  isDeleted?:boolean;
 };
 
 // guardian interface

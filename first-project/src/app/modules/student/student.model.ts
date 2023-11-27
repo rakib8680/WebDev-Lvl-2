@@ -8,9 +8,6 @@ import {
   StudentModelInterface,
   UserName,
 } from './student.interface';
-import bcrypt from 'bcrypt';
-import config from '../../config';
-// import validator from 'validator';
 
 // username schema
 const userNameSchema = new Schema<UserName>({
@@ -51,7 +48,12 @@ const guardianSchema = new Schema<Guardian>({
 // full studentSchema
 const studentSchema = new Schema<Student, StudentModelInterface>({
   id: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, 'UserId is required'],
+    unique: true,
+    ref: 'User',
+  },
   name: { type: userNameSchema, required: true },
   email: {
     type: String,
@@ -81,32 +83,11 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
   permanentAddress: { type: String, required: true },
   guardian: { type: guardianSchema, required: true },
   profilePicture: { type: String },
-  isActive: {
-    type: String,
-    enum: ['active', 'inactive'],
-    default: 'active',
-  },
+  isDeleted: { type: Boolean, default: false },
 });
 
-// pre save hook/middleware
-studentSchema.pre('save', async function (next) {
-  const student = this;
 
-  // hashed password before saving
-  student.password = await bcrypt.hash(
-    student.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-  next();
-});
-
-// post save hook/middleware
-studentSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
-});
-
-// static method
+// custom static method
 studentSchema.statics.isUserExist = async function (id: string) {
   const existingStudent = await StudentModel.findOne({ id });
   return existingStudent;

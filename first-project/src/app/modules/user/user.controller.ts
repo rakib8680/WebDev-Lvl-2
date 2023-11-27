@@ -1,4 +1,5 @@
-import studentValidationSchema from '../student/student.zod.validation';
+import { Request, Response } from 'express';
+// import studentValidationSchema from '../student/student.zod.validation';
 import { userServices } from './user.service';
 
 // create student
