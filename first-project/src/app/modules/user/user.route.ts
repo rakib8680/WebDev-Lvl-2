@@ -1,13 +1,15 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
+import { studentValidations } from '../student/student.zod.validation';
 import { userControllers } from './user.controller';
 
 const router = express.Router();
 
-// middleware for validating data 
-const darao = (req:Request, res:Response, next:NextFunction) => {
-    next();
-}
-
-router.post('/create-student',darao, userControllers.createStudent);
+// routes
+router.post(
+  '/create-student',
+  validateRequest(studentValidations.CreateStudentValidationSchema),
+  userControllers.createStudent,
+);
 
 export const userRoutes = router;

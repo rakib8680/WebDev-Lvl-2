@@ -16,7 +16,7 @@ export type Student = {
   password:string;
   name: UserName;
   email: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   gender: 'male' | 'female';
   contactNo: string;
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';

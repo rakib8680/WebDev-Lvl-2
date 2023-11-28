@@ -64,7 +64,7 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
     //   message: '{VALUE} is not a valid email',
     // },
   },
-  dateOfBirth: { type: String },
+  dateOfBirth: { type: Date },
   gender: {
     type: String,
     enum: {
