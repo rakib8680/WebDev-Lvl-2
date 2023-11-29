@@ -15,6 +15,7 @@ router.post(
   academicSemesterControllers.createAcademicSemester,
 );
 router.get('/:semesterId', academicSemesterControllers.getSingleSemester)
+router.patch('/:semesterId', academicSemesterControllers.updateAcademicSemester)
 
 
 export const academicSemesterRoutes = router;
