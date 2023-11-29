@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // create interface
 
 import { Model, Types } from 'mongoose';
@@ -24,6 +25,7 @@ export type Student = {
   permanentAddress: string;
   guardian: Guardian;
   profilePicture?: string;
+  admissionSemester : Types.ObjectId;
   isDeleted?:boolean;
 };
 

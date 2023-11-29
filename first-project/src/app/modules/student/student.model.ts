@@ -83,6 +83,10 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
   permanentAddress: { type: String, required: true },
   guardian: { type: guardianSchema, required: true },
   profilePicture: { type: String },
+  admissionSemester:{
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicSemester'
+  },
   isDeleted: { type: Boolean, default: false },
 });
 
