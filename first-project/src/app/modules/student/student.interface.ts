@@ -27,6 +27,7 @@ export type Student = {
   profilePicture?: string;
   admissionSemester : Types.ObjectId;
   isDeleted?:boolean;
+  academicDepartment: Types.ObjectId;
 };
 
 // guardian interface

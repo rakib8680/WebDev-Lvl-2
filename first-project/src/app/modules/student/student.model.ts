@@ -83,14 +83,16 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
   permanentAddress: { type: String, required: true },
   guardian: { type: guardianSchema, required: true },
   profilePicture: { type: String },
-  admissionSemester:{
+  admissionSemester: {
     type: Schema.Types.ObjectId,
-    ref: 'AcademicSemester'
+    ref: 'AcademicSemester',
   },
   isDeleted: { type: Boolean, default: false },
+  academicDepartment: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicDepartment',
+  },
 });
-
-
 
 // // Query Middleware
 // studentSchema.pre('find', function (next) {
@@ -107,9 +109,6 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
 //   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
 //   next();
 // });
-
-
-
 
 // custom static method
 studentSchema.statics.isUserExist = async function (id: string) {
