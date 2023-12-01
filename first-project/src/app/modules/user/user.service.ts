@@ -5,6 +5,9 @@ import { User } from './user.model';
 import { StudentModel } from '../student/student.model';
 import { AcademicSemester } from '../academicSemester/academic.Sem.Model';
 import { generateStudentId } from './user.utils';
+import mongoose from 'mongoose';
+import AppError from '../../errors/appError';
+import httpStatus from 'http-status';
 
 const createStudentIntoDB = async (password: string, payload: Student) => {
   const userData: Partial<TUser> = {};
@@ -18,20 +21,38 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
     payload.admissionSemester,
   );
 
+  // start session
+  const session = await mongoose.startSession();
+  try {
+    // start transaction
+    session.startTransaction();
 
-  // set user id
-  userData.id =await generateStudentId(admissionSemester!);
+    // set user id
+    userData.id = await generateStudentId(admissionSemester!);
 
-  // create a user
-  const newUser = await User.create(userData);
+    // create a user - transaction-1
+    const newUser = await User.create([userData], { session });
 
-  //   create a student
-  if (Object.keys(newUser).length) {
-    payload.id = newUser.id; //embedded id
-    payload.user = newUser._id; //reference id
+    // check if user created or not
+    if (!newUser.length)
+      throw new AppError(httpStatus.BAD_REQUEST, 'User not created');
 
-    const newStudent = await StudentModel.create(payload);
+    payload.id = newUser[0].id; //embedded id
+    payload.user = newUser[0]._id; //reference id
+
+    //   create a student - transaction-2
+    const newStudent = await StudentModel.create([payload], { session });
+
+    // check if student created or not
+    if (!newStudent.length)
+      throw new AppError(httpStatus.BAD_REQUEST, 'Student not created');
+
+    await session.commitTransaction();
+    await session.endSession();
     return newStudent;
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
   }
 };
 
