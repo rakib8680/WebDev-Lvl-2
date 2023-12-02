@@ -9,7 +9,7 @@ const validateRequest = (schema: AnyZodObject) => {
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
         // validate data here
-        await schema.parseAsync({ body: req.body });
+        await schema.partial().parseAsync({ body: req.body });
   
          next();
       } catch (error) {

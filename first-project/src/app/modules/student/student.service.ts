@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import AppError from '../../errors/appError';
 import { User } from '../user/user.model';
+import { Student } from './student.interface';
 import { StudentModel } from './student.model';
 
 
@@ -23,7 +24,7 @@ const getAllStudentFromDB = async () => {
 
 // get single student
 const getSingleStudentFromDB = async (id: string) => {
-  const result = await StudentModel.findById(id).populate('admissionSemester')
+  const result = await StudentModel.findOne({id}).populate('admissionSemester')
   .populate({
     path: 'academicDepartment',
     populate: {
@@ -32,6 +33,36 @@ const getSingleStudentFromDB = async (id: string) => {
   });;
   return result;
 };
+
+
+
+// update student 
+const updateStudentIntoDB = async(id:string, payload:Partial<Student>)=>{
+
+  const{name, guardian, ...remaining} = payload;
+
+  const modifiedData : Record<string, unknown> = {...remaining};
+
+  if(name && Object.keys(name).length){
+    for(const [key, value] of Object.entries(name)){
+      modifiedData[`name.${key}`] = value;
+    }
+  }
+
+  if(guardian && Object.keys(guardian).length){
+    for(const [key, value] of Object.entries(guardian)){
+      modifiedData[`guardian.${key}`] = value;
+    }
+  }
+
+
+
+  const result = await StudentModel.findOneAndUpdate({id}, modifiedData);
+
+
+  return result;
+
+}
 
 
 // delete student/user 
@@ -68,6 +99,7 @@ const deleteStudentFromDB = async (id: string) => {
 catch (error) {
   await session.abortTransaction();
   await session.endSession();
+  throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete student');
 }
 
 
@@ -78,4 +110,5 @@ export const studentServices = {
   getAllStudentFromDB,
   getSingleStudentFromDB,
   deleteStudentFromDB,
+  updateStudentIntoDB
 };
