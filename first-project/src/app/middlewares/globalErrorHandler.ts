@@ -4,6 +4,7 @@
 import { ErrorRequestHandler } from 'express';
 import { ZodError, ZodIssue } from 'zod';
 import config from '../config';
+import handleValidationError from '../errors/handleValidationError';
 import handleZodError from '../errors/handleZodError';
 import { TErrorSource } from '../interFace/error';
 
@@ -26,7 +27,11 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
   }else if(err.name ==='ValidationError'){
-    console.log('Im From Mongoose Error');
+    const simplifiedError = handleValidationError(err)
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+
   }
 
 
@@ -35,7 +40,6 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     success: false,
     message,
     errorSources,
-    err,
     stack: config.NODE_ENV==='development'?  err?.stack : null,
   });
 };
