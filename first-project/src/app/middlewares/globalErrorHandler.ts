@@ -1,34 +1,42 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { ErrorRequestHandler} from 'express';
-import { ZodError } from 'zod';
+import { ErrorRequestHandler } from 'express';
+import { ZodError, ZodIssue } from 'zod';
+import config from '../config';
+import handleZodError from '../errors/handleZodError';
+import { TErrorSource } from '../interFace/error';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Something went wrong';
-
-  type TErrorSource = {
-    path: string | number,
-    message : string
-  }[]
-  const errorSource: TErrorSource = [{
-    path: '',
-    message: 'Something Went Wrong'
-  }];
+  let errorSources: TErrorSource = [
+    {
+      path: '',
+      message: 'Something Went Wrong',
+    },
+  ];
 
 
-  if(err instanceof ZodError){
-  statusCode = 400;
-  message = 'Ami Zod Error';
+  // check what kind of error is this
+  if (err instanceof ZodError) {
+    const simplifiedError = handleZodError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  }else if(err.name ==='ValidationError'){
+    console.log('Im From Mongoose Error');
   }
+
 
 
   return res.status(statusCode).json({
     success: false,
     message,
+    errorSources,
     err,
-    errorSource,
+    stack: config.NODE_ENV==='development'?  err?.stack : null,
   });
 };
 
