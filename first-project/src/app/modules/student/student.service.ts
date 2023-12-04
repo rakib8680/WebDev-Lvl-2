@@ -22,14 +22,16 @@ const getAllStudentFromDB = async (query: Record<string, unknown>) => {
     searchTerm = query.searchTerm as string;
   }
 
+  // search partial
   const searchQuery = StudentModel.find({
     $or: studentSearchableFields.map((field) => ({
       [field]: { $regex: searchTerm, $options: 'i' },
     })),
   });
 
+  
   // filtering 
-  const excludeFields = ['searchTerm', 'sort', 'limit'];
+  const excludeFields = ['searchTerm', 'sort', 'limit', 'page'];
   excludeFields.forEach(el =>delete queryObject[el])
 
   const filterQuery = searchQuery
@@ -52,13 +54,24 @@ const getAllStudentFromDB = async (query: Record<string, unknown>) => {
   const sortQuery = filterQuery.sort(sort);
 
 
-  // limiting
+  // limiting & pagination
   let limit = 1;
+  let page = 1;
+  let skip = 0;
+
   if(query.limit){
     limit = query.limit as number;
   };
-  const limitQuery = await sortQuery.limit(limit);
 
+  if(query.page){
+    page = query.page as number;
+    skip = (page - 1) * limit;
+  };
+
+  const paginateQuery = sortQuery.skip(skip)
+
+ 
+  const limitQuery = await paginateQuery.limit(limit);
 
   return limitQuery;
 
