@@ -29,10 +29,10 @@ const getAllStudentFromDB = async (query: Record<string, unknown>) => {
   });
 
   // filtering 
-  const excludeFields = ['searchTerm'];
+  const excludeFields = ['searchTerm', 'sort'];
   excludeFields.forEach(el =>delete queryObject[el])
 
-  const result = await searchQuery
+  const filterQuery = searchQuery
     .find(queryObject)
     .populate('admissionSemester')
     .populate({
@@ -42,7 +42,19 @@ const getAllStudentFromDB = async (query: Record<string, unknown>) => {
       },
     });
 
-  return result;
+
+
+  // sorting
+  let sort = '-createdAt';
+  if(query.sort){
+    sort = query.sort as string;
+  };
+
+  const sortQuery = await filterQuery.sort(sort);
+
+
+
+  return sortQuery;
 
 };
 
