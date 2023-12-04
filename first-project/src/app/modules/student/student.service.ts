@@ -8,8 +8,21 @@ import { StudentModel } from './student.model';
 
 
 // get all student
-const getAllStudentFromDB = async () => {
-  const result = await StudentModel.find()
+const getAllStudentFromDB = async (query : Record<string,unknown>) => {
+
+  let searchTerm = '';
+
+  if(query?.searchTerm) {
+    searchTerm = query.searchTerm as string; 
+  }
+
+  const result = await StudentModel.find({
+    $or:['email', 'name.firstName', 'name.lastName', 'presentAddress'].map(
+      (field)=>({
+        [field]: {$regex: searchTerm, $options: 'i'}
+      })
+    )
+  })
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',

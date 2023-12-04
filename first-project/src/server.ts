@@ -26,6 +26,7 @@ async function main() {
 main();
 
 
+// unhandled Rejection
 process.on('unhandledRejection',()=>{
 
   console.log('Unhandled Rejection Shutting Down');
@@ -38,6 +39,14 @@ process.on('unhandledRejection',()=>{
   else{
     process.exit(1)
   }
+})
+
+
+// uncaught Exception
+process.on('uncaughtException',()=>{
+  console.log('Uncaught Exception Shutting Down');
+
+  process.exit(1);
 })
 
 

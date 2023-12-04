@@ -5,7 +5,9 @@ import { studentServices } from './student.service';
 
 // get all student
 const getAllStudents = catchAsync(async (req, res) => {
-  const result = await studentServices.getAllStudentFromDB();
+
+  const result = await studentServices.getAllStudentFromDB(req.query);
+  
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
