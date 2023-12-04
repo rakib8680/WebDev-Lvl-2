@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import config from '../../config';
 import { Student } from '../student/student.interface';
 import { TUser } from './user.interface';
