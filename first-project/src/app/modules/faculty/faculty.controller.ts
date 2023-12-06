@@ -38,7 +38,7 @@ const getAllFaculties = catchAsync(async (req, res) => {
   });
 
 
-
+  // update faculty
   const updateFaculty = catchAsync(async (req, res) => {
     const { id } = req.params;
     const { faculty } = req.body;
