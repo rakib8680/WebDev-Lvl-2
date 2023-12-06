@@ -90,9 +90,11 @@ const getAllStudentFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+
+
 // get single student
 const getSingleStudentFromDB = async (id: string) => {
-  const result = await StudentModel.findOne({ id })
+  const result = await StudentModel.findById(id)
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -102,6 +104,8 @@ const getSingleStudentFromDB = async (id: string) => {
     });
   return result;
 };
+
+
 
 // update student
 const updateStudentIntoDB = async (id: string, payload: Partial<Student>) => {
@@ -121,7 +125,7 @@ const updateStudentIntoDB = async (id: string, payload: Partial<Student>) => {
     }
   }
 
-  const result = await StudentModel.findOneAndUpdate({ id }, modifiedData);
+  const result = await StudentModel.findByIdAndUpdate(id, modifiedData);
 
   return result;
 };
@@ -134,17 +138,21 @@ const deleteStudentFromDB = async (id: string) => {
     session.startTransaction();
 
     // delete student
-    const deletedStudent = await StudentModel.updateOne(
-      { id },
+    const deletedStudent = await StudentModel.findByIdAndUpdate(
+      id,
       { isDeleted: true },
       { new: true, session },
     );
-    if (!deletedStudent)
+    if (!deletedStudent){
       throw new AppError(httpStatus.BAD_REQUEST, 'Student not deleted');
+    };
+
+    // get user _id from deleted student 
+    const userId = deletedStudent.user 
 
     // DELETE user
-    const deletedUser = await User.findOneAndUpdate(
-      { id },
+    const deletedUser = await User.findByIdAndUpdate(
+      userId,
       { isDeleted: true },
       { new: true, session },
     );
