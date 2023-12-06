@@ -1,6 +1,11 @@
 import { TAcademicSemester } from '../academicSemester/academic.Sem.Interface';
 import { User } from './user.model';
 
+
+
+
+
+  // student id 
 const findLastStudentId = async () => {
   const lastStudent = await User.findOne(
     {
@@ -18,7 +23,6 @@ const findLastStudentId = async () => {
 
   return lastStudent?.id ? lastStudent.id : undefined;
 };
-
 // generate student id
 export const generateStudentId = async (payload: TAcademicSemester) => {
   let currentId = (0).toString();
@@ -36,5 +40,43 @@ export const generateStudentId = async (payload: TAcademicSemester) => {
   let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
 
   incrementId = `${payload.year}${payload.code}${incrementId}`;
+  return incrementId;
+};
+
+
+
+
+// Faculty ID
+export const findLastFacultyId = async () => {
+  const lastFaculty = await User.findOne(
+    {
+      role: 'faculty',
+    },
+    {
+      id: 1,
+      _id: 0,
+    },
+  )
+    .sort({
+      createdAt: -1,
+    })
+    .lean();
+
+  return lastFaculty?.id ? lastFaculty.id.substring(2) : undefined;
+};
+
+// generate faculty id
+export const generateFacultyId = async () => {
+  let currentId = (0).toString();
+  const lastFacultyId = await findLastFacultyId();
+
+  if (lastFacultyId) {
+    currentId = lastFacultyId.substring(2);
+  }
+
+  let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
+
+  incrementId = `F-${incrementId}`;
+
   return incrementId;
 };
