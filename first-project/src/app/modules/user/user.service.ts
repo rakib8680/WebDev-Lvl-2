@@ -12,6 +12,7 @@ import httpStatus from 'http-status';
 import { TFaculty } from '../faculty/faculty.interface';
 import { AcademicDepartment } from '../academicDepartment/academicDepartment.model';
 import { Faculty } from '../faculty/faculty.model';
+import { Admin } from '../admin/admin.model';
 
 
 
@@ -134,7 +135,7 @@ const createAdminIntoDB = async (password: string, payload: TFaculty) => {
   // create a user object
   const userData: Partial<TUser> = {};
 
-  //if password is not given , use deafult password
+  //if password is not given , use default password
   userData.password = password || (config.default_password as string);
 
   //set student role
@@ -182,4 +183,5 @@ const createAdminIntoDB = async (password: string, payload: TFaculty) => {
 export const userServices = {
   createStudentIntoDB,
   createFacultyIntoDB,
+  createAdminIntoDB
 };
