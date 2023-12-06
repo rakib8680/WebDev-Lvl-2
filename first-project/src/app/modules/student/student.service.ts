@@ -31,13 +31,13 @@ import { StudentModel } from './student.model';
   // excludeFields.forEach(el =>delete queryObject[el])
   // const filterQuery = searchQuery
   //   .find(queryObject)
-  //   .populate('admissionSemester')
-  //   .populate({
-  //     path: 'academicDepartment',
-  //     populate: {
-  //       path: 'academicFaculty',
-  //     },
-  //   });
+  // .populate('admissionSemester')
+  // .populate({
+  //   path: 'academicDepartment',
+  //   populate: {
+  //     path: 'academicFaculty',
+  //   },
+  // });
   // sorting
   // let sort = '-createdAt';
   // if(query.sort){
@@ -68,16 +68,26 @@ import { StudentModel } from './student.model';
 
 // get all student
 const getAllStudentFromDB = async (query: Record<string, unknown>) => {
-  const studentQuery = new QueryBuilder(StudentModel.find(), query)
+  const studentQuery = new QueryBuilder(
+    StudentModel.find()
+      .populate('admissionSemester')
+      .populate({
+        path: 'academicDepartment',
+        populate: {
+          path: 'academicFaculty',
+        },
+      }),
+    query,
+  )
     .search(studentSearchableFields)
     .filter()
     .sort()
     .paginate()
     .fields();
 
-    const result = await studentQuery.modelQuery;
+  const result = await studentQuery.modelQuery;
 
-    return result;
+  return result;
 };
 
 // get single student

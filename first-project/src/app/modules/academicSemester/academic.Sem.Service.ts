@@ -39,7 +39,7 @@ const updateAcademicSemester = async (
   }
 
   const result = await AcademicSemester.findOneAndUpdate({ _id: id }, payload, {
-    new: true,
+    new: true, 
     runValidators: true
   });
   return result;
