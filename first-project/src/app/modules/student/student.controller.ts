@@ -3,6 +3,8 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { studentServices } from './student.service';
 
+
+
 // get all student
 const getAllStudents = catchAsync(async (req, res) => {
 
@@ -15,6 +17,7 @@ const getAllStudents = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 
 // get a single student
 const getSingleStudent = catchAsync(async (req, res) => {
@@ -29,6 +32,7 @@ const getSingleStudent = catchAsync(async (req, res) => {
   });
 });
 
+
 // deleteStudent
 const deleteStudent = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -40,7 +44,6 @@ const deleteStudent = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 
 
 // update student 
@@ -55,6 +58,8 @@ const updateStudent = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+
 
 
 export const studentControllers = {

@@ -130,6 +130,8 @@ const updateStudentIntoDB = async (id: string, payload: Partial<Student>) => {
   return result;
 };
 
+
+
 // delete student/user
 const deleteStudentFromDB = async (id: string) => {
   const session = await mongoose.startSession();
@@ -169,6 +171,8 @@ const deleteStudentFromDB = async (id: string) => {
     throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete student');
   }
 };
+
+
 
 export const studentServices = {
   getAllStudentFromDB,
