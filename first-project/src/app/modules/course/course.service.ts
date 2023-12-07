@@ -1,8 +1,9 @@
+import { TCourse } from './course.interface';
 import { Course } from './course.model';
 
 // create course
-const createCourseIntoDB = async () => {
-  const result = await Course.create();
+const createCourseIntoDB = async (payload : TCourse) => {
+  const result = await Course.create(payload);
   return result;
 };
 
@@ -19,18 +20,18 @@ const getSingleCourseFromDB = async (id: string) => {
 };
 
 // update course
-const updateCourseIntoDB = async (id: string, payload: any) => {
-  const result = await Course.findByIdAndUpdate(id, payload, {
-    new: true,
-    runValidators: true,
-  });
+// const updateCourseIntoDB = async (id: string, payload: any) => {
+//   const result = await Course.findByIdAndUpdate(id, payload, {
+//     new: true,
+//     runValidators: true,
+//   });
 
-  return result;
-};
+//   return result;
+// };
 
 // delete course
 const deleteCourseFromDB = async (id: string) => {
-  const result = await Course.findByIdAndDelete(
+  const result = await Course.findByIdAndUpdate(
     id,
     { isDeleted: true },
     { new: true, runValidators: true },
@@ -42,6 +43,5 @@ export const courseServices = {
   createCourseIntoDB,
   getAllCoursesFromDB,
   getSingleCourseFromDB,
-  updateCourseIntoDB,
   deleteCourseFromDB,
 };
