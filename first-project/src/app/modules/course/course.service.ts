@@ -6,11 +6,15 @@ import { CourseSearchableFields } from './course.constant';
 import { TCourse } from './course.interface';
 import { Course } from './course.model';
 
+
+
 // create course
 const createCourseIntoDB = async (payload: TCourse) => {
   const result = await Course.create(payload);
   return result;
 };
+
+
 
 // get all courses
 const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
@@ -28,6 +32,8 @@ const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
   return result;
 };
 
+
+
 // get single course
 const getSingleCourseFromDB = async (id: string) => {
   const result = await Course.findById(id).populate(
@@ -35,6 +41,8 @@ const getSingleCourseFromDB = async (id: string) => {
   );
   return result;
 };
+
+
 
 // update course
 const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
@@ -126,6 +134,8 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
   }
 };
 
+
+
 // delete course
 const deleteCourseFromDB = async (id: string) => {
   const result = await Course.findByIdAndUpdate(
@@ -135,6 +145,11 @@ const deleteCourseFromDB = async (id: string) => {
   );
   return result;
 };
+
+
+// assign faculties 
+const assignFacultiesIntoDB = async(id:string, payload:)
+
 
 export const courseServices = {
   createCourseIntoDB,

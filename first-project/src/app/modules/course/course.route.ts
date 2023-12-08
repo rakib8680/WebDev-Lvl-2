@@ -25,6 +25,8 @@ router.get('/:id', CourseControllers.getSingleCourse);
 
 router.delete('/:id', CourseControllers.deleteCourse);
 
+router.put('/:courseId/assign-faculties', CourseControllers.assignFaculties);
+
 
 
 export const CourseRoutes = router;

@@ -76,11 +76,21 @@ const deleteCourse = catchAsync(async (req, res) => {
 });
 
 
+// assign faculties
+const assignFaculties = catchAsync(async(req, res)=>{
+  
+  const {courseId} = req.params;
+  const {faculties} = req.body;
+
+})
+
+
 
 export const CourseControllers = {
   createCourse,
   getSingleCourse,
   getAllCourses,
   deleteCourse,
-  updateCourse
+  updateCourse,
+  assignFaculties
 };
