@@ -9,7 +9,7 @@
             price: number;
             releaseDate: number;
             model: string
-        },
+        };
         smartWatch: T;
     };
 

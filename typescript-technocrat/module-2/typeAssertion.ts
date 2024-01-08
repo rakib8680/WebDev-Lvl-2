@@ -3,6 +3,7 @@
 
     // Type Assertion 
 
+
     const kgToGm = (value: string | number): string | number | undefined => {
         if (typeof value === 'string') {
             const convertedValue = parseFloat(value) * 1000;
