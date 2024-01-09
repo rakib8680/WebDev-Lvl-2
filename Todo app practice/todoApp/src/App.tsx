@@ -1,8 +1,15 @@
+import TodoForm from "./components/ToDo/TodoForm";
+import TodoList from "./components/ToDo/TodoList";
+import TodoProvider from "./context/TodoProvider";
+
 const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <TodoProvider>
+      <div>
+        <TodoForm />
+        <TodoList/>
+      </div>
+    </TodoProvider>
   );
 };
 
