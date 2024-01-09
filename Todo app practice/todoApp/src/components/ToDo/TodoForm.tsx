@@ -3,7 +3,7 @@ import { TodoContext } from "../../context/TodoProvider";
 
 const TodoForm = () => {
   const context = useContext(TodoContext);
-  if(!context) {
+  if (!context) {
     throw new Error("TodoForm must be used within a TodoProvider");
   }
 
