@@ -2,7 +2,12 @@ import { FormEvent, useContext, useState } from "react";
 import { TodoContext } from "../../context/TodoProvider";
 
 const TodoForm = () => {
-  const { state, dispatch } = useContext(TodoContext);
+  const context = useContext(TodoContext);
+  if(!context) {
+    throw new Error("TodoForm must be used within a TodoProvider");
+  }
+
+  const { state, dispatch } = context;
   const [task, setTask] = useState("");
 
   const handleSubmit = (e: FormEvent) => {

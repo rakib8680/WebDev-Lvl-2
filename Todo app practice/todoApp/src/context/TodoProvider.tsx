@@ -11,7 +11,7 @@ interface TodoProviderProps {
 export type TTodo = {
   id: string;
   title: string;
-  completed: boolean;
+  isCompleted: boolean;
 };
 
 type TAction = {
@@ -25,7 +25,12 @@ const reducer = (currentState: TTodo[], action: TAction) => {
   switch (action.type) {
     case "addTodo":
       return [...currentState, action.payload];
-
+    case "taskCompleted":
+      return currentState.map((todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, isCompleted: !todo.isCompleted }
+          : todo
+      );
     default:
       return currentState;
   }
