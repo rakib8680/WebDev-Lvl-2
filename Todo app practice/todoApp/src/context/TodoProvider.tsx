@@ -16,7 +16,7 @@ export type TTodo = {
 
 type TAction = {
   type: string;
-  payload: TTodo;
+  payload: TTodo | string;
 };
 
 const initialState: TTodo[] = [];
@@ -27,7 +27,7 @@ const reducer = (currentState: TTodo[], action: TAction) => {
       return [...currentState, action.payload];
     case "taskCompleted":
       return currentState.map((todo) =>
-        todo.id === action.payload.id
+        todo.id === action.payload
           ? { ...todo, isCompleted: !todo.isCompleted }
           : todo
       );
@@ -39,7 +39,7 @@ const reducer = (currentState: TTodo[], action: TAction) => {
 const TodoProvider = ({ children }: TodoProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const values = {
+  const values = {  
     state,
     dispatch,
   };
