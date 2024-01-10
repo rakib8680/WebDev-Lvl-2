@@ -5,6 +5,8 @@ const App = () => {
   const dispatch = useAppDispatch();
   const { count } = useAppSelector((state) => state.counter);
 
+
+
   return (
     <div className="h-screen w-full flex justify-center items-center">
       <div className=" flex gap-5 border border-purple-800 bg-purple-200 p-10">
