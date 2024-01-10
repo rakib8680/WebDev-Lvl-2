@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment } from "./redux/features/counterSlice";
+import { decrement, increment, incrementBy } from "./redux/features/counterSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,6 +20,12 @@ const App = () => {
           className="bg-lime-600 text-white px-4 py-1 text-2xl font-semibold rounded-sm"
         >
           Increment
+        </button>
+        <button
+          onClick={() => dispatch(incrementBy(5))}
+          className="bg-lime-600 text-white px-4 py-1 text-2xl font-semibold rounded-sm"
+        >
+          By-5
         </button>
       </div>
     </div>
