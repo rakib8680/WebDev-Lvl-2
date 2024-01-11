@@ -1,4 +1,3 @@
-
 import ShowEmoji from "./components/Ui/ShowEmoji";
 import {
   decrement,
@@ -11,10 +10,9 @@ import { useAppDispatch, useAppSelector } from "./redux/hook";
 const App = () => {
   const dispatch = useAppDispatch();
   const { count } = useAppSelector((state) => state.counter);
-  console.log(count);
 
   return (
-    <div className="h-screen w-full flex justify-center items-center">
+    <div className="h-screen w-full flex justify-center items-center flex-col gap-10">
       <div className=" flex gap-5 border border-purple-800 bg-purple-200 p-10">
         <button
           onClick={() => dispatch(decrementBy(5))}
