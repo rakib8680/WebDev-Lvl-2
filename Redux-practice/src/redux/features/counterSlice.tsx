@@ -29,3 +29,4 @@ export const { increment, incrementBy, decrement, decrementBy } =
   counterSlice.actions;
 
 export default counterSlice.reducer;
+ 
