@@ -1,3 +1,4 @@
+
 import { useAppDispatch } from "@/redux/hook";
 import { Button } from "../ui/button";
 import { removeTodo, toggleComplete } from "@/redux/features/todoSlice";
@@ -24,9 +25,9 @@ const TodoCard = ({ id, title, description, isCompleted }: TodoCardProps) => {
         name="complete"
         id="complete"
       />
-      <p className="font-semibold">{title}</p>
+      <p className="font-semibold flex-1 text-center">{title}</p>
       {/* <p>Time</p> */}
-      <div className="text-center">
+      <div className="flex-">
         {isCompleted ? (
           <p className="text-green-300 font-medium bg-sky-700 px-3 rounded-full">
             Done
@@ -37,8 +38,8 @@ const TodoCard = ({ id, title, description, isCompleted }: TodoCardProps) => {
           </p>
         )}
       </div>
-      <p>{description}</p>
-      <div className="space-x-5">
+      <p className="flex-[2] text-center">{description}</p>
+      <div className="space-x-5 flex-1">
         <Button className="bg-red-500" onClick={() => dispatch(removeTodo(id))}>
           <svg
             className="size-5"
