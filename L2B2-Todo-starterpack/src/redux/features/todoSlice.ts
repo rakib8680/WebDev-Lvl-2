@@ -29,13 +29,17 @@ const todoSlice = createSlice({
     //   const task = state.todos.find((todo) => todo.id === action.payload);
     //   task!.isCompleted = !task?.isCompleted;
     // },
-    toggleComplete: (state, action: PayloadAction<string>) => {                             //Optimized
+    toggleComplete: (state, action: PayloadAction<string>) => {
+      //Optimized
       for (let i = 0; i < state.todos.length; i++) {
         if (state.todos[i].id === action.payload) {
           state.todos[i].isCompleted = !state.todos[i].isCompleted;
           break;
         }
       }
+      state.todos.sort(
+        (a, b) => (a.isCompleted ? 1 : 0) - (b.isCompleted ? 1 : 0)
+      );
     },
   },
 });
