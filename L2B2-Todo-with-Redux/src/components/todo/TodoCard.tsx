@@ -1,4 +1,3 @@
-
 import { useAppDispatch } from "@/redux/hook";
 import { Button } from "../ui/button";
 import { removeTodo, toggleComplete } from "@/redux/features/todoSlice";
@@ -24,6 +23,7 @@ const TodoCard = ({ id, title, description, isCompleted }: TodoCardProps) => {
         type="checkbox"
         name="complete"
         id="complete"
+        defaultChecked={isCompleted}
       />
       <p className="font-semibold flex-1 text-center">{title}</p>
       {/* <p>Time</p> */}
