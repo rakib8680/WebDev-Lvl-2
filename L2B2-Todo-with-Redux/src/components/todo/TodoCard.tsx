@@ -1,7 +1,5 @@
-import { useAppDispatch } from "@/redux/hook";
 import { Button } from "../ui/button";
-import { removeTodo, toggleComplete } from "@/redux/features/todoSlice";
-import { useDeleteTodoMutation } from "@/redux/api/api";
+import { useDeleteTodoMutation, useUpdateTodoMutation } from "@/redux/api/api";
 
 export type TTodoCardProps = {
   _id: string;
@@ -18,12 +16,19 @@ const TodoCard = ({
   isCompleted,
   priority,
 }: TTodoCardProps) => {
-  const [deleteTodo, { isSuccess, error, isLoading }] = useDeleteTodoMutation();
-
-  const dispatch = useAppDispatch();
+  const [deleteTodo, { isSuccess, error }] = useDeleteTodoMutation();
+  const [updateTodo, { isLoading }] = useUpdateTodoMutation();
 
   const toggleState = () => {
-    dispatch(toggleComplete(_id));
+    const taskData = {
+      _id,
+      title,
+      description,
+      priority,
+      isCompleted: !isCompleted,
+    };
+
+    updateTodo(taskData);
   };
 
   return (
