@@ -6,10 +6,11 @@ type TodoCardProps = {
   id: string;
   title: string;
   description: string;
+  priority: string;
   isCompleted?: boolean;
 };
 
-const TodoCard = ({ id, title, description, isCompleted }: TodoCardProps) => {
+const TodoCard = ({ id, title, description, isCompleted , priority}: TodoCardProps) => {
   const dispatch = useAppDispatch();
 
   const toggleState = () => {
@@ -26,7 +27,11 @@ const TodoCard = ({ id, title, description, isCompleted }: TodoCardProps) => {
         defaultChecked={isCompleted}
       />
       <p className="font-semibold flex-1 text-center">{title}</p>
-      {/* <p>Time</p> */}
+      {
+        priority === "low" ? <p className="font-semibold flex-1 text-center text-green-600 uppercase">{priority}</p> : '' ||
+        priority === "medium" ? <p className="font-semibold flex-1 text-center text-yellow-500 uppercase">{priority}</p> : ''||
+        priority === "high" ? <p className="font-semibold flex-1 text-center text-red-600 uppercase">{priority}</p> : ''
+      }
       <div className="flex-">
         {isCompleted ? (
           <p className="text-green-300 font-medium bg-sky-700 px-3 rounded-full">

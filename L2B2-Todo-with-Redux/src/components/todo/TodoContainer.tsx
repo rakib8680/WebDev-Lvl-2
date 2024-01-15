@@ -8,8 +8,10 @@ const TodoContainer = () => {
   // const { todos } = useAppSelector((state) => state.todos);
 
   // from server 
-  const {date, error, isLoading} = useGetTodosQuery();
-  console.log(data);
+  const {data:todos, error, isLoading} = useGetTodosQuery(undefined);
+
+  if (isLoading) return <p className="text-center text-2xl text-sky-700">Loading...</p>;
+
 
   return (
     <div>
@@ -17,9 +19,9 @@ const TodoContainer = () => {
         <AddTodoModal />
         <TodoFilter />
       </div>
-      {todos.length > 0 ? (
+      {todos?.data?.length > 0 ? (
         <div className="bg-white p-5 w-full h-full rounded-lg space-y-3">
-          {todos.map((item, index) => (
+          {todos?.data?.map((item, index:number) => (
             <TodoCard {...item} key={index} />
           ))}
         </div>
