@@ -39,6 +39,15 @@ async function run() {
       }
       const cursor = taskCollection.find(query);
       const tasks = await cursor.toArray();
+
+      // Sort tasks based on isCompleted property
+      tasks.sort((a, b) => {
+        if (a.isCompleted === b.isCompleted) {
+          return 0;
+        }
+        return a.isCompleted ? 1 : -1;
+      });
+
       res.send({ status: true, data: tasks });
     });
 
