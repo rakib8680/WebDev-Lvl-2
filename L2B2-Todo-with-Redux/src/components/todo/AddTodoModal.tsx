@@ -45,7 +45,7 @@ const AddTodoModal = () => {
 
     addTodo(todo);
   };
-
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
