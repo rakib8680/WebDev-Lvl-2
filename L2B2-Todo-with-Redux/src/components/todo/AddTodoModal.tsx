@@ -12,6 +12,13 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useAddTodoMutation } from "@/redux/api/api";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const AddTodoModal = () => {
   // for local state
@@ -23,8 +30,8 @@ const AddTodoModal = () => {
 
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
   const [addTodo, { isLoading, data, error, isSuccess }] = useAddTodoMutation();
-
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -32,13 +39,11 @@ const AddTodoModal = () => {
     const todo = {
       title: task,
       description: description,
+      isCompleted: false,
       priority,
     };
 
-    addTodo()
-
-
-
+    addTodo(todo);
   };
 
   return (
@@ -76,6 +81,21 @@ const AddTodoModal = () => {
                 id="description"
                 className="col-span-3"
               />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="description" className="text-right">
+                Priority
+              </Label>
+              <Select onValueChange={(value) => setPriority(value)}>
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div className="flex justify-end">
