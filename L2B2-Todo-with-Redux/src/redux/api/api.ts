@@ -10,8 +10,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
         method: "GET",
       }),
     }),
+    addTodo: builder.mutation({
+      query: () => ({
+        url: "/task",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useGetTodosQuery} = baseApi;
+export const { useGetTodosQuery, useAddTodoMutation} = baseApi;
 
