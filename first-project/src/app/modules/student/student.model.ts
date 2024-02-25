@@ -67,7 +67,7 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
   presentAddress: { type: String },
   permanentAddress: { type: String, required: true },
   guardian: { type: guardianSchema, required: true },
-  profilePicture: { type: String },
+  profilePicture: { type: String, default:'' },
   admissionSemester: {
     type: Schema.Types.ObjectId,
     ref: 'AcademicSemester',
@@ -76,6 +76,10 @@ const studentSchema = new Schema<Student, StudentModelInterface>({
   academicDepartment: {
     type: Schema.Types.ObjectId,
     ref: 'AcademicDepartment',
+  },
+  academicFaculty: {
+    type: Schema.Types.ObjectId,
+    ref: 'AcademicFaculty',
   },
 });
 

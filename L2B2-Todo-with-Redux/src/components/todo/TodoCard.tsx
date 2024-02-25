@@ -16,8 +16,8 @@ const TodoCard = ({
   isCompleted,
   priority,
 }: TTodoCardProps) => {
-  const [deleteTodo, { isSuccess, error }] = useDeleteTodoMutation();
-  const [updateTodo, { isLoading }] = useUpdateTodoMutation();
+  const [deleteTodo] = useDeleteTodoMutation();
+  const [updateTodo] = useUpdateTodoMutation();
 
   const toggleState = () => {
     const taskData = {

@@ -73,7 +73,7 @@ async function run() {
     // status update
     app.put("/task/:id", async (req, res) => {
       const id = req.params.id;
-      console.log(id);
+      // console.log(id);
       const task = req.body;
       const filter = { _id: new ObjectId(id) };
       const updateDoc = {
