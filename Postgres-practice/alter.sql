@@ -27,3 +27,17 @@ alter column user_name type VARCHAR(100);
 -- add/remove new column constraint 
 alter table person2
 alter column email drop not null;
+
+alter table person2
+add constraint unique_person2_user_age UNIQUE(user_age);
+
+alter table person2
+DROP constraint unique_person2_user_age;
+
+
+
+-- remove data from database 
+TRUNCATE table person2;
+
+-- drop table 
+drop table person3;
