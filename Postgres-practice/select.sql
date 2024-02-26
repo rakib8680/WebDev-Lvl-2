@@ -3,6 +3,7 @@ create table students (
     student_id serial PRIMARY KEY, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, age int check (age >= 18), grade char(2), course VARCHAR(50), email VARCHAR(100), dob date, blood_group varchar(5), country varchar(50)
 );
 
+
 -- insert data into the table
 INSERT INTO
     students (
@@ -39,17 +40,23 @@ VALUES (
         'Harry', 'Moore', 21, 'B', 'Psychology', 'harry.moore@example.com', '2000-10-10', 'B-', 'Canada'
     );
 
+
 -- select all the data from the table
 select * from students;
 
-select * from students where country = 'USA';
 
+
+-- filtering the data
+select * from students where country != 'USA';
+select * from students where not country = 'USA';
+select * from students where email is not null;
 select * from students ORDER BY age ASC;
+
+
 
 -- get all the unique data
 select DISTINCT blood_group from students;
 
--- filtering the data
 select *
 from students
 where (
@@ -57,6 +64,9 @@ where (
         or country = 'Australia'
     )
     and age = 20;
+
+
+
 
 -- SCALAR functions
 select upper(first_name), * from students;
@@ -66,9 +76,18 @@ select upper(
     ) as "full name", *
 from students;
 
+
+
+
+
 -- AGGREGATE functions
 -- Min, Max, Avg, Sum, Count
 select count(*) from students;
 
 -- combined functions
 select max(length(first_name)) from students;
+
+
+
+-- COALESCE function 
+select COALESCE(email, 'Email not provided'), * FROM students; -- if the field (email) is null, then return  a default value, amazing right ?😍
