@@ -4,6 +4,7 @@ create table students (
 );
 
 
+
 -- insert data into the table
 INSERT INTO
     students (
@@ -41,18 +42,18 @@ VALUES (
     );
 
 
--- select all the data from the table
-select * from students;
-
 
 
 -- filtering the data
 select * from students where country != 'USA';
+
 select * from students where not country = 'USA';
+
+select * from students where country in ('USA', 'Australia');
+
 select * from students where email is not null;
+
 select * from students ORDER BY age ASC;
-
-
 
 -- get all the unique data
 select DISTINCT blood_group from students;
@@ -76,6 +77,10 @@ select upper(
     ) as "full name", *
 from students;
 
+select *
+from students
+where
+    dob BETWEEN '1998-01-01' and '2000-10-01' ORDER BY dob DESC;
 
 
 
@@ -84,10 +89,38 @@ from students;
 -- Min, Max, Avg, Sum, Count
 select count(*) from students;
 
+
 -- combined functions
 select max(length(first_name)) from students;
 
 
 
--- COALESCE function 
-select COALESCE(email, 'Email not provided'), * FROM students; -- if the field (email) is null, then return  a default value, amazing right ?😍
+-- COALESCE function
+select COALESCE(email, 'Email not provided'), * FROM students;
+-- if the field (email) is null, then return  a default value, amazing right ?😍
+
+
+
+-- select all the data from the table
+select * from students;
+
+
+-- delete data 
+delete from students where grade = 'D';
+
+-- update data 
+update students
+    set email = 'default@gmail.com'
+    WHERE email is null;
+
+select * from students
+where last_name like 'M%'; --case SENSITIVE 
+select * from students
+where last_name ilike 'm%'; --case INSENSITIVE 
+select * from students
+where last_name like '_a%';
+
+
+
+-- pagination 
+select * from students LIMIT 5 OFFSET 5*1;
