@@ -5,7 +5,11 @@ create table departments (
 )
 
 create table employees (
-    employee_id SERIAL PRIMARY KEY, employee_name VARCHAR(100), department_id int REFERENCES departments (department_id), salary DECIMAL(10, 2), hire_date DATE
+    employee_id SERIAL PRIMARY KEY,
+     employee_name VARCHAR(100),
+      department_id int REFERENCES departments (department_id),
+       salary DECIMAL(10, 2),
+        hire_date DATE
 )
 
 INSERT INTO
