@@ -36,6 +36,5 @@ select * from employees where salary > (select max(salary) as HR_Max_salary from
 
 
 
-
 select * from employees;
 -- DROP table employees
