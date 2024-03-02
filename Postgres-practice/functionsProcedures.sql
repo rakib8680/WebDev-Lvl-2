@@ -14,4 +14,14 @@ $$;
 
 select delete_emp(17)
 
+
+
+
+
+
+
+
+
+
 select * from employees;
+
