@@ -43,4 +43,7 @@ delete from my_users where user_name = 'rakib';
 
 select * from my_users;
 select * from deleted_users_audit;
-drop table deleted_users_audit
+drop table deleted_users_audit;
+
+
+show data_directory;

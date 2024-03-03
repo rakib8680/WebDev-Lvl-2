@@ -49,7 +49,7 @@ select * from students where country != 'USA';
 
 select * from students where not country = 'USA';
 
-select * from students where country in ('USA', 'Australia');
+select * from students where country in ('USA', 'Australia'); -- we can use in operator when we have to check multiple or condition
 
 select * from students where email is not null;
 
@@ -114,9 +114,9 @@ update students
     WHERE email is null;
 
 select * from students
-where last_name like 'M%'; --case SENSITIVE 
+where last_name like 'M%'; --use like for case SENSITIVE 
 select * from students
-where last_name ilike 'm%'; --case INSENSITIVE 
+where last_name ilike 'm%'; -- use Ilike for case INSENSITIVE 
 select * from students
 where last_name like '_a%';
 
