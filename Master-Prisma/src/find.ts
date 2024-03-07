@@ -7,7 +7,22 @@ const main = async () => {
 // get posts 
 const getAllPostsFromDB = await prisma.post.findMany();
 
-console.log(getAllPostsFromDB);
+// find first  & find first or throw
+const findFirst = await prisma.post.findFirstOrThrow({
+    where:{
+        id : 17
+    }
+});
+
+
+const findUnique =await prisma.post.findUnique({
+    where:{
+        id: 18
+    }
+})
+
+
+console.log(findUnique);
 
 
 };
