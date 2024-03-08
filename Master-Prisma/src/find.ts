@@ -10,14 +10,19 @@ const getAllPostsFromDB = await prisma.post.findMany();
 // find first  & find first or throw
 const findFirst = await prisma.post.findFirstOrThrow({
     where:{
-        id : 17
+        id : 23
     }
 });
 
 
 const findUnique =await prisma.post.findUnique({
     where:{
-        id: 18
+        id: 23
+    },
+    select:{
+        title:true,
+        content:true,
+        authorName:true
     }
 })
 
