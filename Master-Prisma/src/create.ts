@@ -34,7 +34,7 @@ const main = async () => {
     ],
   });
 
-  console.log(createMultiple);
+  // console.log(createMultiple);
 };
 
 main();
