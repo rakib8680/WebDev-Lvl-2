@@ -7,14 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//post model
 model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  published Boolean  @default(false)
-  authorId  Int?
-  cratedAt  DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int            @id @default(autoincrement())
+  title        String
+  content      String
+  published    Boolean        @default(false)
+  authorId     Int
+  author       User           @relation(fields: [authorId], references: [id])
+  cratedAt     DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  postCategory PostCategory[]
 
   @@map("posts")
 }
@@ -24,16 +27,19 @@ enum userRole {
   admin
 }
 
+//user model
 model User {
   id       Int      @id @default(autoincrement())
   username String   @unique
   email    String
-  role     userRole
+  role     userRole @default(user)
   profile  Profile? //one to one relation
+  Post     Post[] // one to many relation
 
   @@map("users")
 }
 
+//profile model
 model Profile {
   id     Int     @id @default(autoincrement())
   bio    String?
@@ -43,9 +49,22 @@ model Profile {
   @@map("profiles")
 }
 
+//category model
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
+  id           Int            @id @default(autoincrement())
+  name         String
+  postCategory PostCategory[]
 
   @@map("categories")
+}
+
+//intermediate model to connect many to many 
+model PostCategory {
+  postId     Int
+  post       Post     @relation(fields: [postId], references: [id])
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([postId, categoryId]) //this is a composite key
+  @@map("post_category")
 }
