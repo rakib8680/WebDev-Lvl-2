@@ -5,18 +5,29 @@ const prisma = new PrismaClient();
 const main = async () => {
   const createPost = await prisma.post.create({
     data: {
-      title: "This is title2",
-      content: "This is content2",
-      authorId: 3,
+      title: "This is title 3",
+      content: "This is content 3",
+      authorId: 1,
       postCategory: {
-        create: {
-          categoryId: 2, 
-          //   category: { 
-          //     connect: {
-          //       id: 3,
-          //     },
-          //   },
-        },
+        create: [
+          {
+            categoryId: 1,
+          },
+          {
+            categoryId: 2,
+          },
+          {
+            categoryId: 3,
+          },
+        ],
+        // {
+        //   categoryId: 2,
+        //   //   category: {
+        //   //     connect: {
+        //   //       id: 3,
+        //   //     },
+        //   //   },
+        // },
       },
     },
     include: {
