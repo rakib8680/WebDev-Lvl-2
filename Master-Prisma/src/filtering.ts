@@ -19,7 +19,7 @@ const filtering = async () => {
     },
   });
 
-  //   NOT filtering
+  //   Or filtering
   const orFiltering = await prisma.post.findMany({
     where: {
       OR: [
@@ -34,6 +34,7 @@ const filtering = async () => {
       ],
     },
   });
+  //   Not filtering
   const notFiltering = await prisma.post.findMany({
     where: {
       NOT: [
@@ -49,7 +50,7 @@ const filtering = async () => {
     },
   });
 
-  //   startsWith
+  //   startsWith filtering
   const startsWith = await prisma.user.findMany({
     where: {
       email: {
@@ -58,7 +59,7 @@ const filtering = async () => {
     },
   });
 
-  //   equals
+  //   equals filtering
   const equals = await prisma.user.findMany({
     where: {
       email: {
@@ -67,16 +68,35 @@ const filtering = async () => {
     },
   });
 
+  //   in filtering
   const userNameArray = ["user1", "user2", "user3"];
   const userNamesByArray = await prisma.user.findMany({
-    where:{
-        username:{
-            in: userNameArray
-        }
-    }
-  })
+    where: {
+      username: {
+        in: userNameArray,
+      },
+    },
+  });
 
-  console.log(userNamesByArray);
+  //   in depth data filtering
+  const inDepthData = await prisma.user.findUnique({
+    where: {
+      id: 1,
+    },
+    include: {
+      Post: {
+        include: {
+          postCategory: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  console.dir(inDepthData, { depth: Infinity });
 };
 
 filtering();
