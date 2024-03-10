@@ -14,7 +14,17 @@ const relationalQueries = async () => {
     })
     .Post(); //this is called fluent api
 
-  console.log(result);
+  const publishedPostUsers = await prisma.user.findMany({
+    include: {
+      Post: {
+        where: {
+          published: true,
+        },
+      },
+    },
+  });
+
+  console.dir(publishedPostUsers, { depth: Infinity });
 };
 
 relationalQueries();
