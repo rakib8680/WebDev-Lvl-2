@@ -27,7 +27,20 @@ const aggregateFunctions = async () => {
   //    count total records
   const countData = await prisma.user.count();
 
-  console.log(countData);
+  //   highest age (MAX)
+  const oldestUser = await prisma.user.aggregate({
+    _max: {
+      age: true,
+    },
+  });
+  //   lowest age (MIN)
+  const lowestUser = await prisma.user.aggregate({
+    _min: {
+      age: true,
+    },
+  });
+
+  console.log(lowestUser._min.age);
 };
 
 aggregateFunctions();
