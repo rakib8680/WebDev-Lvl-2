@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 
 const NavBar = () => {
@@ -51,7 +52,7 @@ const NavBar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <Link href='/about'>About</Link>
           </li>
           <li>
             <details>
@@ -67,7 +68,7 @@ const NavBar = () => {
             </details>
           </li>
           <li>
-            <a>Item 3</a>
+            <Link href='/contact'>Contact</Link>
           </li>
         </ul>
       </div>
