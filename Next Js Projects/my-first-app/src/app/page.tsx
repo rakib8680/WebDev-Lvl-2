@@ -1,10 +1,12 @@
+import Counter from  "../components/Counter/Counter";
 
-const homePage = () => {
+
+const HomePage = () => {
   return (
      <div>
-         <h1 className="text-5xl text-center">This is next. js</h1>
+      <Counter/>
      </div>
   )
 };
 
-export default homePage;
+export default HomePage;
