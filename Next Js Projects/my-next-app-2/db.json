@@ -1,0 +1,76 @@
+{
+  "shoes": [
+    {
+      "id": "1",
+      "title": "Air Jordan 1",
+      "description": "High-top basketball shoe",
+      "price": 150.99
+    },
+    {
+      "id": "2",
+      "title": "Nike Air Force 3",
+      "description": "Low-top casual shoe",
+      "price": 90
+    },
+    {
+      "id": "3",
+      "title": "Adidas Ultraboost",
+      "description": "Running shoe with Boost cushioning",
+      "price": 180
+    },
+    {
+      "id": "4",
+      "title": "New Balance 990v5",
+      "description": "Comfortable running shoe",
+      "price": 175
+    },
+    {
+      "id": "5",
+      "title": "Converse Chuck Taylor",
+      "description": "Classic canvas high-top",
+      "price": 55
+    },
+    {
+      "id": "6",
+      "title": "Vans Old Skool",
+      "description": "Low-top skate shoe",
+      "price": 60
+    },
+    {
+      "id": "7",
+      "title": "Yeezy Boost 350",
+      "description": "Kanye West's iconic sneaker",
+      "price": 220
+    },
+    {
+      "id": "8",
+      "title": "Puma Suede Classic",
+      "description": "Classic low-top sneaker",
+      "price": 65
+    },
+    {
+      "id": "9",
+      "title": "Reebok Club C 85",
+      "description": "Classic tennis shoe",
+      "price": 70
+    },
+    {
+      "id": "10",
+      "title": "Asics Gel-Lyte III",
+      "description": "Comfortable running shoe",
+      "price": 110
+    },
+    {
+      "id": "11",
+      "title": "Under Armour HOVR Phantom",
+      "description": "High-performance running shoe",
+      "price": 130
+    },
+    {
+      "id": "12",
+      "title": "Saucony Jazz Original",
+      "description": "Classic running shoe",
+      "price": 60
+    }
+  ]
+}

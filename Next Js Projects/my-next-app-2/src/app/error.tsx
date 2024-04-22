@@ -1,7 +1,7 @@
 
 'use client';
 
-const ErrorPage = ({error, reset}) => {
+const ErrorPage = ({error, reset}: {error: Error, reset: () => void}) => {
   console.log(error);
   return (
     <div className="text-center">
