@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 export const metadata = {
   title: "Home Page",
@@ -7,11 +6,16 @@ export const metadata = {
 
 const HomePage = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/photos",{
-    next:{
-      revalidate: 30
-    }
+    // next:{
+    //   revalidate: 30   // for SSG (Static Site Generation)
+    // },
+    cache:'no-store' // for SSR (Server Side Rendering)
   });
   const allData = await res.json();
+
+
+  throw new Error("Error from HomePage.tsx file");
+
 
   return (
     <div>
