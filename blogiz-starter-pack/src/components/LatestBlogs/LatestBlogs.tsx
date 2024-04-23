@@ -15,12 +15,12 @@ const LatestBlogs = ({ blogs }: { blogs: TBlog[] }) => {
         </i>
       </p>
       <div className=" container mx-auto grid grid-cols-2 gap-8  place-items-center">
-        {blogs.slice(0,2).map((blog) => (
+        {blogs.slice(0, 2).map((blog) => (
           <LatestBlogCard blog={blog} key={blog.id} />
         ))}
       </div>
       <div className=" container mx-auto grid grid-cols-3 gap-8  place-items-center">
-        {blogs.slice(2,6).map((blog) => (
+        {blogs.slice(2, 6).map((blog) => (
           <BlogCard blog={blog} key={blog.id} />
         ))}
       </div>
