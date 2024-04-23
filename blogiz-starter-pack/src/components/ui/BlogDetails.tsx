@@ -1,16 +1,17 @@
+import { TBlog } from "@/types";
 import Image from "next/image";
 import { AiFillLike } from "react-icons/ai";
 import { FaCalendar } from "react-icons/fa";
 
-const BlogDetails = ({ blog }) => {
+const BlogDetails = ({ blog }:{blog:TBlog}) => {
   return (
-    <div className="card w-2/3 bg-base-100 shadow-xl mx-auto">
+    <div className="card w-2/3 bg-base-100 shadow-xl mx-auto ">
       <p className="flex items-center justify-center mx-auto text-accent bg-cyan-100 w-44 px-2 py-1 rounded-full">
         <FaCalendar className="mr-2" />
         {blog.publish_date}
       </p>
       <h2 className="text-center text-4xl my-5">{blog.title}</h2>
-      <div className="avatar items-center justify-center bg-slate-100 mb-5 py-5 rounded-lg text-2xl">
+      <div className="avatar items-center justify-center bg-slate-100 mb-5 py-5  text-2xl">
         <div className="w-8 mr-1 rounded-full">
           <Image
             src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
