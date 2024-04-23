@@ -23,14 +23,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Providers>
       <html lang="en" data-theme="light">
+    <Providers>
         <body className={roboto.className}>
           <Header />
           <div className="min-h-screen">{children}</div>
           <Footer />
         </body>
-      </html>
     </Providers>
+      </html>
   );
 }
